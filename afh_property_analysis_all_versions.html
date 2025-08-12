@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AFH Property Analysis - Complete Video Series Collection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c1810 0%, #4a1f1f 50%, #2c1810 100%);
+            color: #e6e6fa;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="8" fill="%23ffd700" opacity="0.1">🏠📋💰🔨📊</text></svg>') repeat;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(180deg); }
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .header h1 {
+            font-size: 3.5rem;
+            color: #ffd700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            font-weight: bold;
+        }
+        
+        .header .subtitle {
+            font-size: 1.4rem;
+            color: #e6e6fa;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .series-description {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            border: 2px solid #ffd700;
+        }
+        
+        .series-description h2 {
+            color: #ffd700;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .series-description p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+        
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .video-card {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .video-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ffd700, #4169e1, #ffd700);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-10px);
+            border-color: #ffd700;
+            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.2);
+        }
+        
+        .video-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .video-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .video-icon {
+            font-size: 2rem;
+            margin-right: 15px;
+            color: #ffd700;
+        }
+        
+        .video-title {
+            font-size: 1.3rem;
+            color: #ffd700;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .video-duration {
+            font-size: 0.9rem;
+            color: #e6e6fa;
+            opacity: 0.8;
+        }
+        
+        .video-description {
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        .video-features {
+            margin-bottom: 25px;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .feature-list li {
+            padding: 5px 0;
+            color: #e6e6fa;
+            opacity: 0.9;
+        }
+        
+        .feature-list li:before {
+            content: '✓ ';
+            color: #ffd700;
+            font-weight: bold;
+        }
+        
+        .video-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            color: #2c1810;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            flex: 1;
+            text-align: center;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+        }
+        
+        .action-btn.secondary {
+            background: linear-gradient(135deg, #4169e1 0%, #6495ed 100%);
+            color: white;
+        }
+        
+        .action-btn.secondary:hover {
+            box-shadow: 0 8px 20px rgba(65, 105, 225, 0.3);
+        }
+        
+        .back-to-hub {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .back-btn {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            color: #2c1810;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: inline-block;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(0, 0, 0, 0.4);
+            margin-top: 60px;
+        }
+        
+        .footer h3 {
+            color: #ffd700;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .footer p {
+            color: #e6e6fa;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .video-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>🏠 AFH Property Analysis</h1>
+            <p class="subtitle">Complete collection of Adult Family Home property analysis videos - from basic evaluation to advanced investment strategies. Master the art of analyzing AFH properties for investment success.</p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="series-description">
+            <h2>📚 Series Overview</h2>
+            <p>This comprehensive series teaches you everything you need to know about analyzing Adult Family Home properties for investment decisions. From initial property evaluation to detailed financial analysis, you'll learn systematic approaches to assess AFH investment opportunities.</p>
+            <p>Each video version provides the same core content but tailored to different time constraints and learning preferences. Whether you have 15 seconds or 2 minutes, you'll gain valuable insights into AFH property analysis.</p>
+        </div>
+        
+        <div class="video-grid">
+            <!-- 15 Second Version -->
+            <div class="video-card">
+                <div class="video-header">
+                    <div class="video-icon">⚡</div>
+                    <div>
+                        <h3 class="video-title">Quick Overview</h3>
+                        <p class="video-duration">15 Seconds</p>
+                    </div>
+                </div>
+                
+                <p class="video-description">
+                    Lightning-fast overview of AFH property analysis essentials. Perfect for busy professionals who need key insights quickly.
+                </p>
+                
+                <div class="video-features">
+                    <ul class="feature-list">
+                        <li>Key evaluation criteria</li>
+                        <li>Essential compliance points</li>
+                        <li>Quick ROI indicators</li>
+                    </ul>
+                </div>
+                
+                <div class="video-actions">
+                    <a href="#" class="action-btn">🎬 Watch Now</a>
+                    <a href="#" class="action-btn secondary">📱 Download</a>
+                </div>
+            </div>
+            
+            <!-- 25 Second Version -->
+            <div class="video-card">
+                <div class="video-header">
+                    <div class="video-icon">📋</div>
+                    <div>
+                        <h3 class="video-title">Essential Summary</h3>
+                        <p class="video-duration">25 Seconds</p>
+                    </div>
+                </div>
+                
+                <p class="video-description">
+                    Concise summary covering the most important aspects of AFH property analysis with practical examples.
+                </p>
+                
+                <div class="video-features">
+                    <ul class="feature-list">
+                        <li>Property suitability checklist</li>
+                        <li>Basic compliance requirements</li>
+                        <li>Investment potential indicators</li>
+                        <li>Common pitfalls to avoid</li>
+                    </ul>
+                </div>
+                
+                <div class="video-actions">
+                    <a href="#" class="action-btn">🎬 Watch Now</a>
+                    <a href="#" class="action-btn secondary">📱 Download</a>
+                </div>
+            </div>
+            
+            <!-- 50 Second Version -->
+            <div class="video-card">
+                <div class="video-header">
+                    <div class="video-icon">📊</div>
+                    <div>
+                        <h3 class="video-title">Detailed Analysis</h3>
+                        <p class="video-duration">50 Seconds</p>
+                    </div>
+                </div>
+                
+                <p class="video-description">
+                    Comprehensive analysis covering property evaluation, compliance requirements, and investment calculations.
+                </p>
+                
+                <div class="video-features">
+                    <ul class="feature-list">
+                        <li>Complete evaluation framework</li>
+                        <li>DSHS compliance checklist</li>
+                        <li>Financial analysis basics</li>
+                        <li>Market research methods</li>
+                        <li>Risk assessment factors</li>
+                    </ul>
+                </div>
+                
+                <div class="video-actions">
+                    <a href="#" class="action-btn">🎬 Watch Now</a>
+                    <a href="#" class="action-btn secondary">📱 Download</a>
+                </div>
+            </div>
+            
+            <!-- 75 Second Version -->
+            <div class="video-card">
+                <div class="video-header">
+                    <div class="video-icon">🔍</div>
+                    <div>
+                        <h3 class="video-title">In-Depth Review</h3>
+                        <p class="video-duration">75 Seconds</p>
+                    </div>
+                </div>
+                
+                <p class="video-description">
+                    Deep dive into AFH property analysis with case studies, expert insights, and advanced evaluation techniques.
+                </p>
+                
+                <div class="video-features">
+                    <ul class="feature-list">
+                        <li>Advanced evaluation methods</li>
+                        <li>Real case study examples</li>
+                        <li>Expert tips and strategies</li>
+                        <li>Compliance best practices</li>
+                        <li>Investment optimization</li>
+                        <li>Market timing strategies</li>
+                    </ul>
+                </div>
+                
+                <div class="video-actions">
+                    <a href="#" class="action-btn">🎬 Watch Now</a>
+                    <a href="#" class="action-btn secondary">📱 Download</a>
+                </div>
+            </div>
+            
+            <!-- 90 Second Version -->
+            <div class="video-card">
+                <div class="video-header">
+                    <div class="video-icon">🎯</div>
+                    <div>
+                        <h3 class="video-title">Master Class</h3>
+                        <p class="video-duration">90 Seconds</p>
+                    </div>
+                </div>
+                
+                <p class="video-description">
+                    Master-level AFH property analysis covering advanced concepts, industry secrets, and professional strategies.
+                </p>
+                
+                <div class="video-features">
+                    <ul class="feature-list">
+                        <li>Professional analysis techniques</li>
+                        <li>Industry insider knowledge</li>
+                        <li>Advanced financial modeling</li>
+                        <li>Portfolio optimization</li>
+                        <li>Risk management strategies</li>
+                        <li>Market prediction methods</li>
+                        <li>Negotiation tactics</li>
+                    </ul>
+                </div>
+                
+                <div class="video-actions">
+                    <a href="#" class="action-btn">🎬 Watch Now</a>
+                    <a href="#" class="action-btn secondary">📱 Download</a>
+                </div>
+            </div>
+            
+            <!-- 100 Second Version -->
+            <div class="video-card">
+                <div class="video-header">
+                    <div class="video-icon">🏆</div>
+                    <div>
+                        <h3 class="video-title">Complete Guide</h3>
+                        <p class="video-duration">100 Seconds</p>
+                    </div>
+                </div>
+                
+                <p class="video-description">
+                    Complete AFH property analysis guide with practical applications, tools, and resources for immediate use.
+                </p>
+                
+                <div class="video-features">
+                    <ul class="feature-list">
+                        <li>Complete analysis framework</li>
+                        <li>Practical tools and templates</li>
+                        <li>Step-by-step processes</li>
+                        <li>Resource recommendations</li>
+                        <li>Implementation strategies</li>
+                        <li>Success case studies</li>
+                        <li>Ongoing support resources</li>
+                        <li>Professional development</li>
+                    </ul>
+                </div>
+                
+                <div class="video-actions">
+                    <a href="#" class="action-btn">🎬 Watch Now</a>
+                    <a href="#" class="action-btn secondary">📱 Download</a>
+                </div>
+            </div>
+            
+            <!-- 120 Second Version -->
+            <div class="video-card">
+                <div class="video-header">
+                    <div class="video-icon">💎</div>
+                    <div>
+                        <h3 class="video-title">Expert Masterclass</h3>
+                        <p class="video-duration">120 Seconds</p>
+                    </div>
+                </div>
+                
+                <p class="video-description">
+                    Expert-level masterclass covering every aspect of AFH property analysis with insider knowledge and advanced strategies.
+                </p>
+                
+                <div class="video-features">
+                    <ul class="feature-list">
+                        <li>Expert-level analysis techniques</li>
+                        <li>Insider industry knowledge</li>
+                        <li>Advanced financial strategies</li>
+                        <li>Portfolio optimization methods</li>
+                        <li>Risk mitigation strategies</li>
+                        <li>Market timing mastery</li>
+                        <li>Negotiation excellence</li>
+                        <li>Long-term success planning</li>
+                        <li>Professional networking</li>
+                        <li>Continuous improvement</li>
+                    </ul>
+                </div>
+                
+                <div class="video-actions">
+                    <a href="#" class="action-btn">🎬 Watch Now</a>
+                    <a href="#" class="action-btn secondary">📱 Download</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="back-to-hub">
+            <a href="MASTER_AFH_ANALYZER_HUB.html" class="back-btn">🏠 Back to AFH Analyzer Hub</a>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <h3>🏠 AFH Investment Success</h3>
+        <p>Master AFH property analysis with our comprehensive video series</p>
+        <p>Transform your investment decisions with expert insights and proven strategies</p>
+    </div>
+    
+    <script>
+        // Initialize the AFH Property Analysis page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🏠 AFH Property Analysis Page Loaded');
+            console.log('📚 Available video versions: 15s, 25s, 50s, 75s, 90s, 100s, 120s');
+            console.log('🎬 Each version provides the same core content with different detail levels');
+        });
+    </script>
+</body>
+</html>
